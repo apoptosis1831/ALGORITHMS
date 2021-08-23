@@ -21,6 +21,7 @@ string str_to_map_key(string& info, string delim)
 vector<int> solution(vector<string> info, vector<string> query) {
     vector<int> answer(query.size());
     map<string, vector<int>> map; // key = info파싱 문자열 , value = key에 해당하는 사람들 점수
+    
     for(string inf : info)
     {
         string key = str_to_map_key(inf, " ");
