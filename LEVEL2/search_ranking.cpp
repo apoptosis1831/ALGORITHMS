@@ -6,50 +6,55 @@
 
 using namespace std;
 
+string str_to_map_key(string& info, string delim)
+{
+    string key="";
+    int pos = info.find(delim);
+    while(pos!=string::npos){
+        key+=info.substr(0, pos);
+        info.erase(0,pos+1);
+        pos = info.find(delim);
+    }
+    return key;
+}
+
 vector<int> solution(vector<string> info, vector<string> query) {
     vector<int> answer(query.size());
-    map<string, vector<int>> map; // key = infoÆÄ½Ì ¹®ÀÚ¿­ , value = key¿¡ ÇØ´çÇÏ´Â »ç¶÷µé Á¡¼ö
+    map<string, vector<int>> map; // key = infoíŒŒì‹± ë¬¸ìì—´ , value = keyì— í•´ë‹¹í•˜ëŠ” ì‚¬ëŒë“¤ ì ìˆ˜
+    
     for(string inf : info)
     {
-        string key;
-        key += inf.substr(0, inf.find(' '));
-        inf.erase(0, inf.find(' ')+1);
-        key += inf.substr(0, inf.find(' '));
-        inf.erase(0, inf.find(' ')+1);
-        key += inf.substr(0, inf.find(' '));
-        inf.erase(0, inf.find(' ')+1);
-        key += inf.substr(0, inf.find(' '));
-        inf.erase(0, inf.find(' ')+1);
+        string key = str_to_map_key(inf, " ");
         map[key].push_back(stoi(inf));
     }
     for(auto iter = map.begin() ; iter!=map.end(); iter++)
-        sort(iter->second.begin(), iter->second.end()); // Á¡¼öº°·Î map ¿À¸§Â÷¼ø Á¤·Ä (ÀÌÁøÅ½»ö À§ÇØ ÇÊ¿ä)
+        sort(iter->second.begin(), iter->second.end()); // ì ìˆ˜ë³„ë¡œ map ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬ (ì´ì§„íƒìƒ‰ ìœ„í•´ í•„ìš”)
     int cnt=0;
     for(string cond : query)
     {
         vector<string> key;
         string tmp;
         tmp = cond.substr(0, cond.find(' '));
-        if(tmp == "-") // Á¶°Ç Ãß°¡
+        if(tmp == "-") // ì¡°ê±´ ì¶”ê°€
         {
             key.push_back("java");
             key.push_back("python");
             key.push_back("cpp");
         }
         else key.push_back(tmp);
-        cond.erase(0, cond.find(' ')+5); // " and " erase ½ÃÄÑÁÖ±â
+        cond.erase(0, cond.find(' ')+5); // " and " erase ì‹œì¼œì£¼ê¸°
         
         tmp = cond.substr(0, cond.find(' '));
         if(tmp == "-")
         {
             vector<string> key2(key.size());
-            copy(key.begin(), key.end(), key2.begin()); // key2¿¡ keyº¹»ç
+            copy(key.begin(), key.end(), key2.begin()); // key2ì— keyë³µì‚¬
             for(int i=0; i<key.size() ; i++)
             {
                 key[i]+="backend";
                 key2[i]+="frontend";
             }
-            key.insert(key.end(), key2.begin(), key2.end()); // key2, key ÇÕÃÄÁÖ±â
+            key.insert(key.end(), key2.begin(), key2.end()); // key2, key í•©ì³ì£¼ê¸°
         }
         else
         {
@@ -62,7 +67,7 @@ vector<int> solution(vector<string> info, vector<string> query) {
         if(tmp == "-")
         {
             vector<string> key2(key.size());
-            copy(key.begin(), key.end(), key2.begin()); // key2¿¡ keyº¹»ç
+            copy(key.begin(), key.end(), key2.begin()); // key2ì— keyë³µì‚¬
             for(int i=0; i<key.size() ; i++)
             {
                 key[i]+="junior";
@@ -81,7 +86,7 @@ vector<int> solution(vector<string> info, vector<string> query) {
         if(tmp == "-")
         {
             vector<string> key2(key.size());
-            copy(key.begin(), key.end(), key2.begin()); // key2¿¡ keyº¹»ç
+            copy(key.begin(), key.end(), key2.begin()); // key2ì— keyë³µì‚¬
             for(int i=0; i<key.size() ; i++)
             {
                 key[i]+="chicken";
@@ -99,7 +104,7 @@ vector<int> solution(vector<string> info, vector<string> query) {
         for(int i=0; i<key.size() ; i++)
         {
             vector<int>::iterator index = lower_bound(map[key[i]].begin(),map[key[i]].end(), stoi(cond));
-            // stoi(cond)º¸´Ù ³ôÀº ¼ö Áß Á¦ÀÏ ÀÛÀº ¼ö Å½»öÇØ¼­ iterator ¹İÈ¯
+            // stoi(cond)ë³´ë‹¤ ë†’ì€ ìˆ˜ ì¤‘ ì œì¼ ì‘ì€ ìˆ˜ íƒìƒ‰í•´ì„œ iterator ë°˜í™˜
             answer[cnt] += map[key[i]].size() - (index - map[key[i]].begin());
         }
         cnt++;
