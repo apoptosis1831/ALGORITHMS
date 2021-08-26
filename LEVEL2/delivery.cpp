@@ -8,30 +8,52 @@ using namespace std;
 queue<int> q;
 vector<bool> check;
 
-bool compare(vector<int> a, vector<int> b)
-{
-    if(a[0]==b[0]) return a[1]<b[1];
-    return a[0] < b[0];
-}
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
+
+using namespace std;
+
+queue<int> q;
+vector<bool> check;
 
 int solution(int N, vector<vector<int>> road, int K) {
     check.resize(N+1,false);
     vector<int> min_dis(N+1,500001);
-    for(int i=0; i<road.size(); i++)
-    {
-        if(road[i][0] > road[i][1])
-        {
-            int tmp = road[i][0];
-            road[i][0]=road[i][1];
-            road[i][1]=tmp;
-        }
-    }
-    sort(road.begin(), road.end(), compare);
-    for(int i=0; i<road.size()-1 ; i++)
-    {
-        if(road[i][0]==road[i+1][0] && road[i][1]==road[i+1][1]) road.erase(road.begin()+i+1);
-    }
-    //정렬, 정리
 
     int answer=0;
     q.push(1);
