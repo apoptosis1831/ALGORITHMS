@@ -6,15 +6,9 @@
 
 using namespace std;
 
-string rotate(string str) // ¿ŞÂÊÀ¸·Î ÇÑÄ­¾¿ rotation ÇØÁÖ´Â ÇÔ¼ö
+string rotate(string str)
 {
-    char c=str[0];
-    string new_str="";
-    int len=str.length();
-    for(int i=1; i<len; i++)
-        new_str += str[i];
-    new_str += c;
-    return new_str;
+    return str.substr(1) + str.substr(0,1);
 }
 
 bool is_right(string str)
@@ -28,7 +22,7 @@ bool is_right(string str)
     for (int i = 1; i < str.length(); i++)
     {
         if(st.empty()) {st.push(str[i]); continue;}
-        if(str[i]==map[st.top()]) st.pop(); // () , {}, [] ÀÏ °æ¿ì pop()
+        if(str[i]==map[st.top()]) st.pop(); // () , {}, [] ì¼ ê²½ìš° pop()
         else st.push(str[i]);
     }
     if (st.empty())
@@ -37,7 +31,7 @@ bool is_right(string str)
 }
 int solution(string s) {
     int answer = 0;
-    if(s.length()%2!=0) return 0; // °ıÈ£ °³¼ö È¦¼öÀÎ °æ¿ì ¿Ã¹Ù¸¥ °ıÈ£ ¸øµÊ
+    if(s.length()%2!=0) return 0; // ê´„í˜¸ ê°œìˆ˜ í™€ìˆ˜ì¸ ê²½ìš° ì˜¬ë°”ë¥¸ ê´„í˜¸ ëª»ë¨
     for(int i=0; i<s.length()-1; i++)
     {
         if(is_right(s)) answer++;
