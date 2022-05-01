@@ -1,0 +1,40 @@
+function solution(maps){
+    const arrivX = maps.length;
+    const arrivY = maps[0].length; // 도착점 좌표
+    const dx=[1,-1,0,0];
+    const dy=[0,0,1,-1];
+    let bools= [];
+    maps.forEach((rows,rIdx)=>{
+        let r=[];
+        rows.forEach((item)=>{
+            r.push(item);
+        });
+        bools.push(r);
+    }); // bools : 전에 방문했는지 검사 (0:방문함, 1:아직 방문안함)
+    let que = [];
+    que.push({x:0, y:0});
+    maps[0][0]=1; // maps[0][0]의 depth는 무조건 1
+    bools[0][0]=0; // 방문했으면 bools = 0 으로 바꿔주기
+    while(que.length !==0){
+        const front = que[0]; // 방문할 위치
+        const depth = maps[front.x][front.y]; // front까지 가는 최단거리
+        que.shift(); // 맨앞 요소(front) 꺼내기
+        for(let i=0; i<4; i++){ // 하, 상, 우, 좌
+            let X=front.x+dx[i];
+            let Y=front.y+dy[i]; // front에서 dx, dy만큼 이동한 좌표
+            if(X===arrivX-1 && Y===arrivY-1) return depth+1;
+            // 해당 좌표가 도착점이면 바로 return
+            if(X<0 || Y<0 || X>=arrivX || Y>=arrivY) continue;
+            // maps 범위를 나갔을때
+            if(maps[X][Y]===0) continue; // 벽을 만났을때
+            if(bools[X][Y]===0) continue; // 방문한 좌표일때
+            bools[X][Y]=0; // 방문한거 표시
+            que.push({x:X, y:Y});
+            maps[X][Y]=depth+1;
+        }
+    }
+    return -1;
+}
+const m = [[1,0,1,1,1],[1,0,1,0,1],[1,0,1,1,1],[1,1,1,0,1],[0,0,0,0,1]];
+//const m = [[1,0,1,1,1],[1,0,1,0,1],[1,0,1,1,1],[1,1,1,0,0],[0,0,0,0,1]];
+console.log(solution(m));
