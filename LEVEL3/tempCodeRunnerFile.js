@@ -1,14 +1,19 @@
-=>{
-    //     graph[win][lose]=1;
-    //     graph[lose][win]=-1;
-    //     graph[win][win]=0;
-    //     graph[lose][lose]=0;
-    // });
-    // for(let mid = 1; mid<n+1; mid++){
-    //     for(let a=1; a<n+1; a++){
-    //         for(let b=1; b<n+1; b++){
-    //             if(graph[a][mid]===1 && graph[mid][b]===1) graph[a][b]=1;
-    //             if(graph[a][mid]===-1 && graph[mid][b]===-1) graph[a][b]=-1;
-    //         }
+h; i++){
+    //     let [name, profit] = [seller[i], amount[i]*100]
+        
+    //     while(profit/10 >= 1){
+    //         let index = enroll.findIndex(enrollName => enrollName === name);
+            
+    //         //employee.find(([emName, , ])=>emName)
+    //         const parent = referral[index];
+    //         employee.find(([emName, , ])=>emName === name)[2] -= Math.floor(profit/10);
+    //         if(referral[index]==='-') break;
+    //         employee.find(([emName, , ])=>emName === parent)[2] += Math.floor(profit/10);
+    //         profit = profit/10;
+    //         name = parent;
+            
     //     }
     // }
+    // return employee.map(([name,profit,add])=>{
+    //     return profit+add;
+    // })
